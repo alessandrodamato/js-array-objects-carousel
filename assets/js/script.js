@@ -34,18 +34,13 @@ const carouselThumbnails = document.querySelector('.my-thumbnails');
 const carouselItem = document.getElementsByClassName('my-carousel-item');
 const carouselThumb = document.getElementsByClassName('my-thumbnail');
 
+
+
 //data
 let counter = 0;
 
 //svuoto l'HTML
 reset();
-
-//stampo il bottone di sinistra e lo salvo in una variabile
-carouselThumbnails.innerHTML += `
-<div class="my-previous position-absolute">
-  <span class="my-prev-hook"></span>
-</div>`
-const prev = document.querySelector('.my-previous');
 
 //ciclo l'array di oggetti
 images.forEach(image => {
@@ -65,15 +60,20 @@ images.forEach(image => {
   </div>`
 });
 
-//stampo il bottone di destra e lo salvo in una variabile
+carouselItem[counter].classList.add('active');
+carouselThumb[counter].classList.add('active');
+
+//stampo i bottoni e li salvo in variabili tramite classe
 carouselThumbnails.innerHTML += `
+<div class="my-previous position-absolute">
+  <span class="my-prev-hook"></span>
+</div>
 <div class="my-next position-absolute">
   <span class="my-next-hook"></span>
 </div>`
+const prev = document.querySelector('.my-previous');
 const next = document.querySelector('.my-next');
 
-carouselItem[counter].classList.add('active');
-carouselThumb[counter].classList.add('active');
 prev.addEventListener('click', goprev);
 next.addEventListener('click', gonext);
 
