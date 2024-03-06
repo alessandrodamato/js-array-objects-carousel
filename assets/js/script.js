@@ -28,3 +28,33 @@ const images = [
     },
 ];
 
+//elements
+const contentAdCol = document.querySelector('.ad_col');
+
+// reset();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////// FUNCTIONS ///////////////////////
+
+function reset () {
+    contentAdCol.innerHTML = '';
+}
