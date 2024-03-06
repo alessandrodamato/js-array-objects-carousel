@@ -87,7 +87,6 @@ div.item-description{
 }
 
 div#my-carousel .my-thumbnails{
-    flex-basis: 20%;
     height: 100%;
     display: flex;
     overflow-x: auto;
@@ -96,6 +95,7 @@ div#my-carousel .my-thumbnails{
 
 div#my-carousel .my-thumbnails .my-thumbnail{
     filter: brightness(.4);
+    width: 20%
 }
 
 div#my-carousel .my-thumbnails .my-thumbnail img{

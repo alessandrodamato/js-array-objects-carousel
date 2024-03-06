@@ -30,9 +30,9 @@ const images = [
 
 //elements
 const carouselImages = document.querySelector('.my-carousel-images');
+const carouselThumbnails = document.querySelector('.my-thumbnails');
 const carouselItem = document.getElementsByClassName('my-carousel-item');
-const prev = document.querySelector('.my-previous');
-const next = document.querySelector('.my-next');
+const carouselThumb = document.getElementsByClassName('my-thumbnail');
 
 //data
 let counter = 0;
@@ -40,21 +40,40 @@ let counter = 0;
 //svuoto l'HTML
 reset();
 
+//stampo il bottone di sinistra e lo salvo in una variabile
+carouselThumbnails.innerHTML += `
+<div class="my-previous position-absolute">
+  <span class="my-prev-hook"></span>
+</div>`
+const prev = document.querySelector('.my-previous');
+
 //ciclo l'array di oggetti
 images.forEach(image => {
   
   carouselImages.innerHTML += `
   <div class="my-carousel-item">
-  <img class="img-fluid" src="${image.url}" alt="${image.title} picture">
-  <div class="item-description px-3">
-  <h2>${image.title}</h2>
-  <p>${image.description}</p>
-  </div>
+    <img class="img-fluid" src="${image.url}" alt="${image.title} picture">
+    <div class="item-description px-3">
+      <h2>${image.title}</h2>
+      <p>${image.description}</p>
+    </div>
   </div>`
-  
+
+  carouselThumbnails.innerHTML += `
+  <div class="my-thumbnail">
+    <img class="img-fluid" src="${image.url}" alt="Thumbnail of ${image.title} picture">
+  </div>`
 });
 
+//stampo il bottone di destra e lo salvo in una variabile
+carouselThumbnails.innerHTML += `
+<div class="my-next position-absolute">
+  <span class="my-next-hook"></span>
+</div>`
+const next = document.querySelector('.my-next');
+
 carouselItem[counter].classList.add('active');
+carouselThumb[counter].classList.add('active');
 prev.addEventListener('click', goprev);
 next.addEventListener('click', gonext);
 
@@ -62,18 +81,37 @@ next.addEventListener('click', gonext);
 
 function reset () {
   carouselImages.innerHTML = '';
+  carouselThumbnails.innerHTML = '';
 }
 
 function goprev() {
-  carouselItem[counter].classList.remove('active');
-  counter--;
-  console.log(counter);
-  carouselItem[counter].classList.add('active');
+  if (counter === 0){
+    carouselItem[counter].classList.remove('active');
+    carouselThumb[counter].classList.remove('active');
+    counter = images.length - 1;
+    carouselItem[counter].classList.add('active');
+    carouselThumb[counter].classList.add('active');
+  } else {
+    carouselItem[counter].classList.remove('active');
+    carouselThumb[counter].classList.remove('active');
+    counter--;
+    carouselItem[counter].classList.add('active');
+    carouselThumb[counter].classList.add('active');
+  }
 }
 
 function gonext() {
-  carouselItem[counter].classList.remove('active');
-  counter++;
-  console.log(counter);
-  carouselItem[counter].classList.add('active');
+  if (counter === images.length - 1){
+    carouselItem[counter].classList.remove('active');
+    carouselThumb[counter].classList.remove('active');
+    counter = 0;
+    carouselItem[counter].classList.add('active');
+    carouselThumb[counter].classList.add('active');
+  } else {
+    carouselItem[counter].classList.remove('active');
+    carouselThumb[counter].classList.remove('active');
+    counter++;
+    carouselItem[counter].classList.add('active');
+    carouselThumb[counter].classList.add('active');
+  }
 }
