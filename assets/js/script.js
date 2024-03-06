@@ -31,13 +31,15 @@ const images = [
 //elements
 const carouselImages = document.querySelector('.my-carousel-images');
 const carouselThumbnails = document.querySelector('.my-thumbnails');
+const playPause = document.querySelector('.play-pause');
+const invertDirection = document.querySelector('.invert');
 const carouselItem = document.getElementsByClassName('my-carousel-item');
 const carouselThumb = document.getElementsByClassName('my-thumbnail');
 
-
-
 //data
 let counter = 0;
+let pause = false;
+let direction = 'right';
 
 //svuoto l'HTML
 reset();
@@ -74,8 +76,26 @@ carouselThumbnails.innerHTML += `
 const prev = document.querySelector('.my-previous');
 const next = document.querySelector('.my-next');
 
+autoPlay();
+
 prev.addEventListener('click', goprev);
 next.addEventListener('click', gonext);
+
+playPause.addEventListener('click', function(){
+  if (!pause) {
+    pause = true;
+  } else {
+    pause = false;
+  }
+});
+
+invertDirection.addEventListener('click', function(){
+  if (direction === 'right') {
+    direction = 'left'
+  } else if (direction === 'left'){
+    direction = 'right'
+  }
+});
 
 /////////////////////// FUNCTIONS ///////////////////////
 
@@ -114,4 +134,19 @@ function gonext() {
     carouselItem[counter].classList.add('active');
     carouselThumb[counter].classList.add('active');
   }
+}
+
+function autoPlay () {
+  setInterval(() => {
+      if (!pause){
+        switchDirection();
+      }
+  }, 3000);
+}
+
+function switchDirection() {
+  if (direction === 'right') {
+    return gonext();
+  }
+  return goprev();
 }
