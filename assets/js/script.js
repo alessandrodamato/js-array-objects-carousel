@@ -39,7 +39,7 @@ const carouselThumb = document.getElementsByClassName('my-thumbnail');
 //data
 let counter = 0;
 let pause = false;
-let direction = 'right';
+let dir = 'right';
 
 //svuoto l'HTML
 reset();
@@ -80,22 +80,8 @@ autoPlay();
 
 prev.addEventListener('click', goprev);
 next.addEventListener('click', gonext);
-
-playPause.addEventListener('click', function(){
-  if (!pause) {
-    pause = true;
-  } else {
-    pause = false;
-  }
-});
-
-invertDirection.addEventListener('click', function(){
-  if (direction === 'right') {
-    direction = 'left'
-  } else if (direction === 'left'){
-    direction = 'right'
-  }
-});
+playPause.addEventListener('click', stopGo);
+invertDirection.addEventListener('click', switchDirection);
 
 /////////////////////// FUNCTIONS ///////////////////////
 
@@ -136,16 +122,32 @@ function gonext() {
   }
 }
 
+function stopGo () {
+  if (!pause) {
+    pause = true;
+  } else {
+    pause = false;
+  }
+}
+
 function autoPlay () {
   setInterval(() => {
       if (!pause){
-        switchDirection();
+        direction();
       }
   }, 3000);
 }
 
-function switchDirection() {
-  if (direction === 'right') {
+function switchDirection () {
+  if (dir === 'right') {
+    dir = 'left'
+  } else if (dir === 'left'){
+    dir = 'right'
+  }
+}
+
+function direction () {
+  if (dir === 'right') {
     return gonext();
   }
   return goprev();
